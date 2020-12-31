@@ -1,0 +1,79 @@
+<div style="text-align: center">
+    <h2>Tienda de Flores</h2>
+    <button type="button" class="btn btn-success" (click)="open(content)">Crear una nueva flor</button>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tipo de flores</th>
+                <th>Cantidad</th>
+                <th>Precio total</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of collection.data | paginate: config">
+                <td>{{ item.id }}</td>
+                <td>{{ item.tipodeflores }}</td>
+                <td>{{ item.cantidad }}</td>
+                <td>{{ item.preciototal }}</td>
+                <td>
+                    <button type="button" class="btn btn-primary" (click)="openEditar(content,item)">Editar</button>
+                    <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+
+
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Flor create/update</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+
+                    
+        <form [formGroup]="florForm">
+
+            <div class="form-group">
+              <label for="">Id</label>
+              <input type="number" formControlName="id" class="form-control">
+            </div>
+  
+            <div class="form-group">
+              <label >Tipo de flores</label>
+              <input type="text" formControlName="tipodeflores" class="form-control">
+            </div>
+  
+            <div class="form-group">
+              <label >Cantidad</label>
+              <input type="number" formControlName="cantidad" class="form-control">
+            </div>
+  
+            <div class="form-group">
+              <label >Precio total</label>
+              <input type="number" formControlName="preciototal" class="form-control">
+            </div>
+  
+            
+          </form> 
+  
+
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="guardarFlor()" *ngIf="!actualizar">Save</button>
+            <button type="button" class="btn btn-outline-dark" (click)="actualizarFlor()" *ngIf="actualizar">Actualizar</button>
+        </div>
+    </ng-template>
+
+</div>
